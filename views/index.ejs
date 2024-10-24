@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search App</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>DỰ ĐOÁN NGUY CƠ PHẠM TỘI CỦA NGƯỜI TRƯỞNG THÀNH</h1>
+        <div class="flex">
+            <div class="item">
+                <form action="/searchById" method="POST">
+                    <input type="text" name="searchQuery" placeholder="Nhập CCCD...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="item">
+                <form action="/searchByAdd" method="POST">
+                    <select id='city' name='city_selectbox' >
+                        <option value="0" selected="selected" >--Chọn Tỉnh/TP--</option>
+                        <% city.forEach(item_city => { %>
+                        <option value="<%= item_city.value %>"><%= item_city.name %></option>
+                        <% }) %>   
+                    </select>
+                    <select id='district' name='district_selectbox' >
+                        <option value="0" selected="selected" >--Chọn Quận/Huyện--</option>
+                        <% district.forEach(item_district => { %>
+                        <option value="<%= item_district.value %>"><%= item_district.name %></option>
+                        <% }) %>   
+                    </select>
+                    <select id='ward' name='ward_selectbox' >
+                        <option value="0" selected="selected" >--Chọn Xã/Phường--</option>
+                        <% ward.forEach(item_ward => { %>
+                        <option value="<%= item_ward.value %>"><%= item_ward.name %></option>
+                        <% }) %>   
+                    </select>
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="item">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".xlsx" required>
+                    <button type="submit">Upload</button>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

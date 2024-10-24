@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search App</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>KẾT QUẢ DỰ ĐOÁN NGUY CƠ PHẠM TỘI</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>CCCD</th>
+                    <th>Họ Tên</th>
+                    <th>Tuổi</th>
+                    <th>Địa chỉ</th>
+                    <th>Kết quả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(item => { %>
+                    <tr>
+                        <td><%= item.citizen_id %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.age %></td>
+                        <td><%= item.address %></td>
+                        <td><%= item.result %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <form action="/testpage" method="post">
+            <% if (currentPage > 1) { %>
+                <button type="submit" name="page" value="<%= currentPage - 1 %>">Previous</button>
+            <% } %>
+    
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <button type="submit" name="page" value="<%= i %>" style="<%= i === currentPage ? 'font-weight: bold;' : '' %>">
+                    <%= i %>
+                </button>
+            <% } %>
+    
+            <% if (currentPage < totalPages) { %>
+                <button type="submit" name="page" value="<%= currentPage + 1 %>">Next</button>
+            <% } %>
+        </form>
+        <h1>THỐNG KÊ KẾT QUẢ THEO BIỂU ĐỒ</h1>
+        <div class="item2">
+            <h3>Biểu đồ cột theo nhóm tuổi</h3>
+            <img src="/images/Bar_char_by_list.png" />
+        </div>
+        <div class="item2">
+            <h3>Biểu đồ tỷ lệ</h3>
+            <img src="/images/Percent_char_by_list.png" />
+        </div>
+        <div class="container2">
+            <a href="/">Trở về trang chính</a>
+        </div>
+    </div>
+    
+</body>
+</html>

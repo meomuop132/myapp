@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search App</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PHÂN TRANG</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>CCCD</th>
+                    <th>Họ Tên</th>
+                    <th>Tuổi</th>
+                    <th>Địa chỉ</th>
+                    <th>Kết quả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% items.forEach(item => { %>
+                    <tr>
+                        <td><%= item.citizen_id %></td>
+                        <td><%= item.name %></td>
+                        <td><%= item.age %></td>
+                        <td><%= item.address %></td>
+                        <td><%= item.result %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <form action="/testpage" method="post">
+        <% if (currentPage > 1) { %>
+            <button type="submit" name="page" value="<%= currentPage - 1 %>">Previous</button>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <button type="submit" name="page" value="<%= i %>" style="<%= i === currentPage ? 'font-weight: bold;' : '' %>">
+                <%= i %>
+            </button>
+        <% } %>
+
+        <% if (currentPage < totalPages) { %>
+            <button type="submit" name="page" value="<%= currentPage + 1 %>">Next</button>
+        <% } %>
+    </form>
+</body>
+</html>
