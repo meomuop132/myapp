@@ -100,6 +100,7 @@ const resultSearchByAddScreen = [
   {"citizen_id":658602521220,"name": "Hồ Trần Thanh Tuấn","age": 25,"address": "TT Văn Giang, Văn Giang, Hưng Yên" , "result": "Nguy cơ cao" }
 ]
 var resultSearchByListScreen = []
+var resultSearchByIdScreen =[]
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -116,27 +117,27 @@ app.post('/searchById', async (req, res) => {
   var city_selectbox = req.body.city_selectbox;
   var district_selectbox = req.body.district_selectbox;
   var ward_selectbox = req.body.ward_selectbox;
-  var resultJson;
 
   const url = 'http://192.168.2.31:5000/cccd';
   const postData = {
     id: searchQuery
   };
-
-  const axiosData = await axios.post(url, postData, {
-    headers: { 'Content-Type': 'application/json' }
-  })
-  resultJson = axiosData.data
-  resultJson["name"] = "Đặng Quang Thắng"
-  resultJson["address"] = "Thị trấn Văn Giang, Văn Giang, Hưng Yên"
-  resultJson["result"] =""
-  if (resultJson.predictions == 1 ) {
-    resultJson["result"] = 'Nguy cơ cao'
-  } else {
-    resultJson["result"] = 'Nguy cơ thấp'
+  if (resultSearchByIdScreen.length  < 1){
+    const axiosData = await axios.post(url, postData, {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    resultSearchByIdScreen.push(axiosData.data)
   }
-  console.log(resultJson)
-  res.render('resultForSearchById', { data: resultJson, searchQuery: req.body.search });
+  
+  resultSearchByIdScreen[0]["name"] = "Đặng Quang Thắng"
+  resultSearchByIdScreen[0]["address"] = "Thị trấn Văn Giang, Văn Giang, Hưng Yên"
+  resultSearchByIdScreen[0]["result"] =""
+  if (resultSearchByIdScreen[0].predictions == 1 ) {
+    resultSearchByIdScreen[0]["result"] = 'Nguy cơ cao'
+  } else {
+    resultSearchByIdScreen[0]["result"] = 'Nguy cơ thấp'
+  }
+  res.render('resultForSearchById', { data: resultSearchByIdScreen[0] });
 });
 
 
@@ -280,6 +281,26 @@ app.post('/testpage', (req, res) => {
         currentPage: page,
         totalPages: totalPages
     });
+});
+
+// Route get feedback
+app.post('/feedback', async (req, res) => {
+  var fb_citizen_id = req.body.fb_citizen_id;
+  var fb_name = req.body.fb_name;
+  var fb_age = req.body.fb_age;
+  var fb_address = req.body.fb_address;
+  var fb_result = req.body.fb_result;
+
+
+  console.log("fb_citizen_id:" + fb_citizen_id);
+  console.log("fb_name:" + fb_name);
+  console.log("fb_age:" + fb_age);
+  console.log("fb_address:" + fb_address);
+  console.log("fb_result:" + fb_result);
+  if (resultSearchByIdScreen.length > 0){
+    res.render('resultForSearchById', { data: resultSearchByIdScreen[0]});
+  }
+  res.render('resultForSearchById', { data: {}});
 });
 
 

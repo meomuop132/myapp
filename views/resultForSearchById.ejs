@@ -28,6 +28,46 @@
                     </tr>
             </tbody>
         </table>
+        <div class="divpopup" id="popup">
+            <form style=" display: inline-block;" action="/feedback" method="POST">
+                <input class="input-large" type="text" name="fb_citizen_id" value = "<%= data.citizen_id %>">
+                <input class="input-large" type="text" name="fb_name" value = "<%= data.name %>">
+                <input class="input-large" type="text" name="fb_age" value = "<%= data.age %>">
+                <input class="input-large" type="text" name="fb_address" value = "<%= data.address %>">
+                <select name='fb_result' >
+                    <option value="-1" selected="selected" >--Kết quả xác minh--</option>
+                    <option value="1">Nguy cơ cao</option>
+                    <option value="0">Nguy cơ thấp</option>
+                </select>
+                <button id="closePopup1" type="submit">Gửi Feedback</button>
+                <button id="closePopup">Close</button>
+            </form>
+            
+          </div>
+        <div class="item2">
+          <button style="width: 200px; text-align: center;" id="popupButton">Gửi Feedback</button>
+        </div>
+          <script>
+            // Get the button and popup elements
+            const popupButton = document.getElementById('popupButton');
+            const popup = document.getElementById('popup');
+            const closePopup = document.getElementById('closePopup');
+            const closePopup1 = document.getElementById('closePopup1');
+        
+            // Show popup when button is clicked
+            popupButton.addEventListener('click', function () {
+              popup.style.display = 'block';
+            });
+        
+            // Close the popup when the close button is clicked
+            closePopup.addEventListener('click', function () {
+              popup.style.display = 'none';
+            });
+
+            closePopup1.addEventListener('click', function () {
+              popup.style.display = 'none';
+            });
+          </script>
         <a href="/">Trở về trang chính</a>
     </div>
     
